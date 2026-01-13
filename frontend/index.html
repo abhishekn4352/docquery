@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DocQuery</title>
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DocQuery</title>
+
+    <!-- ✅ Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- ✅ AOS animation styles -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+
+    <style>
+      /* Optional: Custom dark mode switch styling */
+      .dark-mode {
+        background-color: #0f172a;
+        color: white;
+      }
+    </style>
+  </head>
+  <body class="bg-gradient-to-tr from-indigo-100 via-white to-purple-100 text-gray-800 overflow-x-hidden">
+
+    <!-- Your entire content here (navbar, sections, footer) -->
+
+    <!-- ✅ AOS JS -->
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script>
+      AOS.init();
+    </script>
+
+    <!-- ✅ Tailwind toggle + optional dark mode -->
+    <script>
+      function toggleDark() {
+        document.body.classList.toggle("dark-mode");
+        document.documentElement.dataset.theme = document.body.classList.contains("dark-mode") ? "dark" : "light";
+      }
+    </script>
+  </body>
+</html>
+
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .dark-mode {
+      background-color: #0f172a;
+      color: white;
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-tr from-indigo-100 via-white to-purple-100 text-gray-800 overflow-x-hidden">
+
+  <!-- Navbar -->
+  <nav class="bg-white shadow-lg fixed top-0 left-0 w-full z-50">
+    <div class="max-w-7xl mx-auto px-8 py-4 flex justify-between items-center">
+      <h1 class="text-2xl font-bold text-indigo-700">DocQuery</h1>
+      <div class="space-x-6 text-lg">
+        <a href="index.html" class="hover:text-indigo-500">Home</a>
+        <a href="upload.html" class="hover:text-indigo-500">Upload</a>
+        <a href="chat.html" class="hover:text-indigo-500">Chat</a>
+        <a href="#contact" class="hover:text-indigo-500">Contact</a>
+        <button onclick="toggleDark()" class="ml-4 bg-indigo-100 px-3 py-1 rounded">🌙</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-20 text-center px-10" data-aos="fade-up">
+    <h2 class="text-5xl font-bold text-indigo-800">Your AI-Powered Document Assistant</h2>
+    <p class="mt-6 text-xl text-gray-600">Upload, Ask, and Get Answers Instantly from Your Documents.</p>
+    <a href="upload.html" class="mt-10 inline-block bg-indigo-600 text-white px-8 py-3 rounded-full text-lg hover:bg-indigo-700 transition">Get Started</a>
+  </section>
+
+  <!-- How it Works -->
+  <section class="px-24 py-20 bg-white" data-aos="fade-up">
+    <div class="text-center mb-12">
+      <h3 class="text-3xl font-semibold text-indigo-800">How it Works</h3>
+    </div>
+    <div class="grid grid-cols-3 gap-10 text-center">
+      <div class="bg-indigo-50 p-6 rounded-xl shadow hover:shadow-lg transition">
+        <h4 class="text-2xl font-semibold mb-3">🗂 Upload Files</h4>
+        <p>Drag and drop PDF, TXT, or DOCX files. We process and index them for instant queries.</p>
+      </div>
+      <div class="bg-indigo-50 p-6 rounded-xl shadow hover:shadow-lg transition">
+        <h4 class="text-2xl font-semibold mb-3">💬 Ask Questions</h4>
+        <p>Type any question about your documents and receive natural-language responses.</p>
+      </div>
+      <div class="bg-indigo-50 p-6 rounded-xl shadow hover:shadow-lg transition">
+        <h4 class="text-2xl font-semibold mb-3">📄 Get Answers</h4>
+        <p>Get context-aware, accurate answers powered by LLMs, with source highlighting.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Use Cases -->
+<section class="px-24 py-20 bg-white" data-aos="fade-up">
+  <h3 class="text-3xl font-semibold text-indigo-800 text-center mb-8">🛠️ Real-World Use Cases</h3>
+  <div class="grid md:grid-cols-3 gap-8 text-center">
+    <div class="bg-indigo-50 p-6 rounded-xl shadow hover:shadow-lg transition">
+      <h4 class="text-xl font-semibold mb-2">📚 Academic Research</h4>
+      <p>Quickly extract key insights from thesis papers, textbooks, and notes.</p>
+    </div>
+    <div class="bg-indigo-50 p-6 rounded-xl shadow hover:shadow-lg transition">
+      <h4 class="text-xl font-semibold mb-2">🏢 Business Documents</h4>
+      <p>Search through contracts, reports, and manuals for specific clauses or facts.</p>
+    </div>
+    <div class="bg-indigo-50 p-6 rounded-xl shadow hover:shadow-lg transition">
+      <h4 class="text-xl font-semibold mb-2">⚖️ Legal Discovery</h4>
+      <p>Scan multiple legal files to find references, laws, or arguments in seconds.</p>
+    </div>
+  </div>
+</section>
+<!-- Testimonials -->
+<section class="px-24 py-20 bg-gradient-to-br from-indigo-100 via-white to-purple-100" data-aos="fade-up">
+  <h3 class="text-3xl font-semibold text-indigo-800 text-center mb-10">🌟 What Users Are Saying</h3>
+  <div class="grid md:grid-cols-2 gap-10 max-w-5xl mx-auto">
+    <div class="bg-white p-6 rounded-xl shadow text-left">
+      <p class="italic text-gray-600">“DocQuery saved me hours of work while preparing my research paper. It's like having a personal assistant!”</p>
+      <p class="mt-4 font-bold text-indigo-700">— Sarah, PhD Student</p>
+    </div>
+    <div class="bg-white p-6 rounded-xl shadow text-left">
+      <p class="italic text-gray-600">“We use DocQuery at our law firm to find relevant case details fast. It's an absolute game changer!”</p>
+      <p class="mt-4 font-bold text-indigo-700">— Rajiv, Legal Associate</p>
+    </div>
+  </div>
+</section>
+<!-- Features Summary -->
+<section class="px-24 py-20 bg-white" data-aos="fade-up">
+  <h3 class="text-3xl font-semibold text-indigo-800 text-center mb-10">🚀 Why Choose DocQuery?</h3>
+  <div class="grid md:grid-cols-4 gap-8 text-center">
+    <div class="p-4 bg-indigo-50 rounded-lg shadow">
+      <h4 class="text-xl font-bold mb-2">⚡ Fast Answers</h4>
+      <p>Lightning-fast query responses powered by LLaMA3.</p>
+    </div>
+    <div class="p-4 bg-indigo-50 rounded-lg shadow">
+      <h4 class="text-xl font-bold mb-2">🔍 Semantic Search</h4>
+      <p>Go beyond keyword search with intelligent understanding.</p>
+    </div>
+    <div class="p-4 bg-indigo-50 rounded-lg shadow">
+      <h4 class="text-xl font-bold mb-2">🔒 Private & Secure</h4>
+      <p>Your documents never leave your device or our secure server.</p>
+    </div>
+    <div class="p-4 bg-indigo-50 rounded-lg shadow">
+      <h4 class="text-xl font-bold mb-2">🌐 Multi-file Support</h4>
+      <p>Query across all your uploaded documents at once.</p>
+    </div>
+  </div>
+</section>
+
+
+  <!-- File Preview -->
+  <section class="px-24 py-20 bg-gradient-to-br from-purple-100 via-white to-indigo-100" data-aos="fade-up">
+    <h3 class="text-3xl font-semibold text-indigo-800 text-center mb-10">📂 Uploaded Files</h3>
+    <div class="bg-white rounded-lg shadow p-6">
+      <div id="file-list-container">
+        <ul id="file-list" class="space-y-4 text-left text-lg"></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="px-24 py-20 bg-white text-center" data-aos="fade-up">
+    <h3 class="text-3xl font-semibold text-indigo-800 mb-6">📧 Contact Us</h3>
+    <form id="contactForm" class="max-w-2xl mx-auto grid grid-cols-1 gap-6">
+      <input name="name" type="text" placeholder="Your Name" class="px-4 py-3 border rounded" required />
+      <input name="email" type="email" placeholder="Your Email" class="px-4 py-3 border rounded" required />
+      <textarea name="message" placeholder="Message" class="px-4 py-3 border rounded" required></textarea>
+      <button type="submit" class="bg-indigo-600 text-white py-3 rounded hover:bg-indigo-700">Send</button>
+    </form>
+    <div id="formMessage" class="mt-4 text-lg font-medium"></div>
+  </section>
+
+
+  <!-- FAQ -->
+  <section class="px-24 py-20 bg-white" data-aos="fade-up">
+    <h3 class="text-3xl font-semibold text-indigo-800 text-center mb-8">❓ Frequently Asked Questions</h3>
+    <div class="space-y-6 max-w-4xl mx-auto">
+      <details class="bg-indigo-50 p-4 rounded">
+        <summary class="cursor-pointer font-semibold">What file formats are supported?</summary>
+        <p class="mt-2">PDF, TXT, and DOCX files are supported.</p>
+      </details>
+      <details class="bg-indigo-50 p-4 rounded">
+        <summary class="cursor-pointer font-semibold">Is there a file size limit?</summary>
+        <p class="mt-2">Currently, files up to 10MB are supported.</p>
+      </details>
+      <details class="bg-indigo-50 p-4 rounded">
+        <summary class="cursor-pointer font-semibold">Can I ask questions across multiple files?</summary>
+        <p class="mt-2">Yes! Multiple file support is built-in.</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-indigo-600 text-white py-6 text-center">
+    <p>© 2025 DocQuery. All rights reserved.</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init();
+    function toggleDark() {
+      document.body.classList.toggle("dark-mode");
+      document.documentElement.dataset.theme = document.body.classList.contains("dark-mode") ? "dark" : "light";
+    }
+  </script>
+
+  <!-- Contact Form Script -->
+  <script>
+    const contactForm = document.getElementById("contactForm");
+    const formMessage = document.getElementById("formMessage");
+
+    contactForm.addEventListener("submit", async function (e) {
+      e.preventDefault();
+      const formData = {
+        name: contactForm.name.value,
+        email: contactForm.email.value,
+        message: contactForm.message.value
+      };
+
+      try {
+        const response = await fetch("http://127.0.0.1:5000/api/contact", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData)
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+          formMessage.textContent = "✅ Message sent successfully!";
+          formMessage.className = "mt-4 text-green-600 font-medium";
+          contactForm.reset();
+        } else {
+          throw new Error(result.error || "Unknown error");
+        }
+      } catch (err) {
+        formMessage.textContent = `❌ ${err.message}`;
+        formMessage.className = "mt-4 text-red-600 font-medium";
+      }
+    });
+  </script>
+
+  <!-- File Preview Logic -->
+  <script type="module">
+    import config from './config.js';
+    import { createLoadingSpinner, createErrorAlert, createToast } from './src/components.js';
+
+    async function loadFiles() {
+      const fileListContainer = document.getElementById('file-list-container');
+      const fileList = document.getElementById('file-list');
+      fileList.innerHTML = '';
+      fileListContainer.insertBefore(createLoadingSpinner(), fileList);
+
+      try {
+        const res = await fetch(`${config.API_BASE_URL}/files`);
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+        const data = await res.json();
+
+        fileListContainer.removeChild(fileListContainer.firstChild);
+
+        if (!data.files || data.files.length === 0) {
+          fileList.innerHTML = `<li class="text-gray-500">No files uploaded yet.</li>`;
+          return;
+        }
+
+        fileList.innerHTML = '';
+        data.files.forEach(file => {
+          const li = document.createElement('li');
+          li.className = "flex items-center gap-2 p-2 hover:bg-indigo-50 rounded group";
+          li.innerHTML = `
+            <span class="flex-grow">${file}</span>
+            <button class="opacity-0 group-hover:opacity-100 text-red-500 hover:text-red-700" onclick="deleteFile('${file}')">🗑</button>
+          `;
+          fileList.appendChild(li);
+        });
+
+        createToast('Files loaded successfully');
+      } catch (err) {
+        fileListContainer.removeChild(fileListContainer.firstChild);
+        fileList.innerHTML = `<li class="text-red-500">Error loading files.</li>`;
+        createToast('Failed to load files', 'error');
+      }
+    }
+
+    window.deleteFile = async function(filename) {
+      if (!confirm(`Are you sure you want to delete ${filename}?`)) return;
+
+      try {
+        const res = await fetch(`${config.API_BASE_URL}/files/${encodeURIComponent(filename)}`, { method: 'DELETE' });
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+        createToast('File deleted successfully');
+        loadFiles();
+      } catch (err) {
+        createToast('Failed to delete file', 'error');
+      }
+    };
+
+    window.addEventListener('DOMContentLoaded', loadFiles);
+  </script>
+</body>
+</html>

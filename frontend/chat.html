@@ -1,0 +1,215 @@
+<script src="https://cdn.tailwindcss.com"></script>
+
+<link rel="stylesheet" href="style.css" />
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chat - DocuQuery</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.2/dist/tailwind.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="bg-gradient-to-b from-white via-indigo-50 to-indigo-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 min-h-screen text-gray-900 dark:text-white transition-all">
+    <!-- Navbar -->
+    <nav class="w-full py-4 px-8 flex justify-between items-center bg-white dark:bg-gray-800 shadow fixed top-0 z-50">
+      <h1 class="text-2xl font-bold text-indigo-700 dark:text-white">DocuQuery</h1>
+      <div class="space-x-6">
+        <a href="index.html" class="text-indigo-600 dark:text-indigo-300 hover:text-indigo-800 font-medium">Home</a>
+        <a href="upload.html" class="text-indigo-600 dark:text-indigo-300 hover:text-indigo-800 font-medium">Upload</a>
+        <a href="chat.html" class="text-indigo-800 dark:text-white font-bold underline">Chat</a>
+      </div>
+    </nav>
+  
+    <!-- Multi-file Indicator -->
+    <div class="pt-20 pb-2 px-4 text-sm text-gray-600 dark:text-gray-300 text-center">
+      <strong>Files Loaded:</strong>
+      <span id="fileNames" class="text-indigo-600 dark:text-indigo-300 font-medium">Loading...</span>
+    </div>
+  
+    <!-- Chat Container -->
+    <main class="pb-28 px-4 max-w-4xl mx-auto">
+      <div id="chatBox" class="space-y-6 overflow-y-auto h-[65vh] p-4 bg-white dark:bg-gray-700 shadow rounded-xl border border-indigo-200 dark:border-gray-600">
+        <!-- Chat messages appear here -->
+      </div>
+  
+      <!-- Typing Indicator -->
+      <div id="typingIndicator" class="mt-2 text-sm text-gray-500 hidden animate-pulse">
+        DocuQuery is thinking<span class="dot-flash">...</span>
+      </div>
+  
+      <!-- Chat Controls -->
+      <div class="mt-4 flex justify-between items-center text-sm">
+        <div class="space-x-4">
+          <button onclick="clearChat()" class="text-red-600 hover:text-red-800 dark:text-red-400">🗑 Clear Chat</button>
+          <button onclick="exportChat()" class="text-indigo-700 hover:text-indigo-900 dark:text-indigo-300">⬇️ Export Chat</button>
+        </div>
+        <button onclick="toggleTheme()" class="text-gray-600 hover:text-gray-900 dark:text-gray-300">
+          🌗 Toggle Theme
+        </button>
+      </div>
+  
+      <!-- Input -->
+      <div class="fixed bottom-4 left-0 right-0 max-w-4xl mx-auto px-4 flex items-center gap-4">
+        <input
+          type="text"
+          id="userInput"
+          placeholder="Ask something about your uploaded documents..."
+          class="flex-1 px-4 py-3 rounded-full shadow border border-gray-300 dark:border-gray-500 dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-400"
+        />
+        <button
+          onclick="sendQuery()"
+          class="px-6 py-3 bg-indigo-600 text-white rounded-full shadow hover:bg-indigo-700 transition"
+        >
+          Send
+        </button>
+      </div>
+    </main>
+  
+    <script type="module">
+      import config from './config.js';
+      
+      const chatBox = document.getElementById("chatBox");
+      const userInput = document.getElementById("userInput");
+      const typingIndicator = document.getElementById("typingIndicator");
+      const fileNamesSpan = document.getElementById("fileNames");
+  
+      let chatHistory = [];
+  
+      async function sendQuery() {
+        const query = userInput.value.trim();
+        if (!query) return;
+  
+        appendMessage("user", query);
+        chatHistory.push(`You: ${query}`);
+        userInput.value = "";
+        typingIndicator.classList.remove("hidden");
+  
+        try {
+          const res = await fetch(`${config.API_BASE_URL}/search/?query=${encodeURIComponent(query)}`);
+          const data = await res.json();
+  
+          const message = data.answer || "No answer found.";
+          const sources = (data.sources || []).map(src =>
+            `<code class="bg-indigo-100 dark:bg-indigo-800 text-indigo-700 dark:text-indigo-200 px-2 py-1 rounded text-xs">${src}</code>`
+          ).join(" ");
+  
+          appendMessage("bot", message, sources);
+          chatHistory.push(`Bot: ${message}${data.sources?.length ? " (Sources: " + data.sources.join(", ") + ")" : ""}`);
+        } catch (error) {
+          const errMsg = "❌ Sorry, something went wrong.";
+          appendMessage("bot", errMsg);
+          chatHistory.push(`Bot: ${errMsg}`);
+        } finally {
+          typingIndicator.classList.add("hidden");
+        }
+      }
+  
+      function appendMessage(sender, message, sources = "") {
+        const timestamp = new Date().toLocaleTimeString();
+        const wrapper = document.createElement("div");
+  
+        const isUser = sender === "user";
+        const bubble = `
+          <div class="flex ${isUser ? "justify-end" : "justify-start"} items-start gap-3">
+            ${!isUser ? `<img src="https://api.dicebear.com/7.x/identicon/svg?seed=bot" class="w-8 h-8 rounded-full" alt="Bot">` : ""}
+            <div class="p-4 max-w-xl rounded-2xl shadow-md ${isUser ? "bg-indigo-100 dark:bg-indigo-600 text-indigo-900 dark:text-white" : "bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200"}">
+              <div class="text-sm whitespace-pre-wrap">${message}</div>
+              ${sources ? `<div class="mt-2 space-x-1">${sources}</div>` : ""}
+              <div class="text-xs text-gray-400 dark:text-gray-300 mt-1">${timestamp}</div>
+            </div>
+            ${isUser ? `<img src="https://api.dicebear.com/7.x/identicon/svg?seed=user" class="w-8 h-8 rounded-full" alt="You">` : ""}
+          </div>
+        `;
+        wrapper.innerHTML = bubble;
+        chatBox.appendChild(wrapper);
+        chatBox.scrollTo({ top: chatBox.scrollHeight, behavior: "smooth" });
+      }
+  
+      function exportChat() {
+        const blob = new Blob([chatHistory.join("\n\n")], { type: "text/plain" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "docuquery_chat.txt";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+  
+      function clearChat() {
+        chatBox.innerHTML = "";
+        chatHistory = [];
+      }
+  
+      function toggleTheme() {
+        document.documentElement.classList.toggle("dark");
+        localStorage.setItem("theme", document.documentElement.classList.contains("dark") ? "dark" : "light");
+      }
+      
+
+      async function loadFiles() {
+        try {
+            const res = await fetch(`${config.API_BASE_URL}/files`);
+            const data = await res.json();
+            if (data.files && data.files.length > 0) {
+            // show file list
+            } else {
+            console.log("No files found");
+            }
+        } catch (err) {
+            console.error("Files Loaded: Unable to fetch files.", err);
+        }
+        }
+
+      async function loadFileNames() {
+        try {
+          const res = await fetch(`${config.API_BASE_URL}/files`);
+          const data = await res.json();
+          fileNamesSpan.textContent = data.files && data.files.length > 0
+            ? data.files.join(", ")
+            : "No files uploaded";
+        } catch (error) {
+          console.error("Error loading files:", error);
+          fileNamesSpan.textContent = "Unable to fetch files.";
+        }
+      }
+  
+      loadFileNames();
+      userInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") sendQuery();
+      });
+  
+      // Load theme from localStorage
+      if (localStorage.getItem("theme") === "dark") {
+        document.documentElement.classList.add("dark");
+      }
+
+      // Sticky scroll-to-bottom button
+      const scrollDownBtn = document.createElement("button");
+      scrollDownBtn.id = "scrollDownBtn";
+      scrollDownBtn.innerHTML = "⬇️";
+      scrollDownBtn.classList.add("hidden", "fixed", "bottom-24", "right-6", "bg-indigo-600", "hover:bg-indigo-700", "text-white", "px-3", "py-2", "rounded-full", "shadow");
+      scrollDownBtn.onclick = () => chatBox.scrollTo({ top: chatBox.scrollHeight, behavior: "smooth" });
+      document.body.appendChild(scrollDownBtn);
+
+      chatBox.addEventListener("scroll", () => {
+        const nearBottom = chatBox.scrollTop + chatBox.clientHeight >= chatBox.scrollHeight - 100;
+        scrollDownBtn.classList.toggle("hidden", nearBottom);
+      });
+    </script>
+  
+    <style>
+      .dot-flash::after {
+        content: '';
+        animation: dots 1.5s infinite steps(3, end);
+      }
+      @keyframes dots {
+        0% { content: ''; }
+        33% { content: '.'; }
+        66% { content: '..'; }
+        100% { content: '...'; }
+      }
+    </style>
+  </body>
+</html>
